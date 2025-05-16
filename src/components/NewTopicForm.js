@@ -15,8 +15,8 @@ export default function NewTopicForm() {
   const handleSubmit = e => {
     e.preventDefault();
     if (name.length > 0) {
-      let uniqueId = uuidv4();
-      dispatch(addTopic({ id: uniqueId, name: name, icon: icon }));
+      const topicId = uuidv4();
+      dispatch(addTopic({ id: topicId, name: name, icon: icon }));
       navigate(ROUTES.topicsRoute());
     }
   };

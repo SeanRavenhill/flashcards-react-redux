@@ -1,25 +1,24 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import {useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import ROUTES from "../app/routes";
-import { ALL_ICONS } from "../data/icons";
-// import addTopic
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import ROUTES from '../app/routes';
+import { ALL_ICONS } from '../data/icons';
+import { addTopic } from '../features/topics/topicsSlice';
 
 export default function NewTopicForm() {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [icon, setIcon] = useState("");
-  const navigate = useNavigate()
+  const [name, setName] = useState('');
+  const [icon, setIcon] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    if (name.length === 0) {
-      return;
+    if (name.length > 0) {
+      let uniqueId = uuidv4();
+      dispatch(addTopic({ id: uniqueId, name: name, icon: icon }));
+      navigate(ROUTES.topicsRoute());
     }
-
-    // dispatch new topic
-    navigate(ROUTES.topicsRoute());
   };
 
   return (
@@ -31,11 +30,11 @@ export default function NewTopicForm() {
             id="topic-name"
             type="text"
             value={name}
-            onChange={(e) => setName(e.currentTarget.value)}
+            onChange={e => setName(e.currentTarget.value)}
             placeholder="Topic Name"
           />
           <select
-            onChange={(e) => setIcon(e.currentTarget.value)}
+            onChange={e => setIcon(e.currentTarget.value)}
             required
             defaultValue="default"
           >
@@ -49,7 +48,9 @@ export default function NewTopicForm() {
             ))}
           </select>
         </div>
-        <button className="center" type="submit">Add Topic</button>
+        <button className="center" type="submit">
+          Add Topic
+        </button>
       </form>
     </section>
   );

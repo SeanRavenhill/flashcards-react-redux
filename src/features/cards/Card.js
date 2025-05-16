@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectCardById } from '../cards/cardSlice';
+import { selectCardById } from './cardSlice';
 
 export default function Card({ id }) {
   const card = useSelector(selectCardById(id));
